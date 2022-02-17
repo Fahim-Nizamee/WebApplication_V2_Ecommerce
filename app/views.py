@@ -80,12 +80,6 @@ def topwear(request,data=None):
         topwears=Product.objects.filter(category='TW').filter(discounted_price__gt=1000)
     return render(request, 'app/topwear.html',{'topwears':topwears})
 
-def login(request):
- return render(request, 'app/login.html')
-
-# def customerregistration(request):
-#  return render(request, 'app/customerregistration.html')
-
 class CustomerRegistrationView(View):
     def get(self,request):
         form=CustomerRegistrationForm()
