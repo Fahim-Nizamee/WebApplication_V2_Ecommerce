@@ -2,6 +2,7 @@ from unicodedata import category
 from django.shortcuts import render
 from django.views import View
 from .models import Customer,Product,Cart,OrderPlaced
+from .forms import CustomerRegistrationForm
 
 
 class ProductView(View):
@@ -82,8 +83,17 @@ def topwear(request,data=None):
 def login(request):
  return render(request, 'app/login.html')
 
-def customerregistration(request):
- return render(request, 'app/customerregistration.html')
+# def customerregistration(request):
+#  return render(request, 'app/customerregistration.html')
 
+class CustomerRegistrationView(View):
+    def get(self,request):
+        form=CustomerRegistrationForm()
+        return render(request, 'app/customerregistration.html',{'form':form})
+    def post(self,request):
+        form=CustomerRegistrationForm(request.POST)
+        if form.is_valid():
+            form.save()
+        return render(request, 'app/customerregistration.html',{'form':form})
 def checkout(request):
  return render(request, 'app/checkout.html')
