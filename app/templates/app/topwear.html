@@ -1,0 +1,35 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% block title %}Buy Now{% endblock title %}
+{% block main-content %}
+<div class="container my-5">
+ <div class="row">
+  <div class="col-sm-3">
+      <div class="list-group">
+          
+        <a href="{% url 'topwear' %}" class="list-group-item list-group-item-action" aria-current="true">All Top Wears</a>
+        <a href="{% url 'topweardata' 'G-collection' %}" class="list-group-item list-group-item-action" aria-current="true">G-Collection</a>
+        <a href="{% url 'topweardata' 'BlueMoon' %}" class="list-group-item list-group-item-action" aria-current="true">Blue Moon</a>
+        <a href="{% url 'topweardata' 'below' %}" class="list-group-item list-group-item-action" aria-current="true">Below Tk. 1000</a>
+        <a href="{% url 'topweardata' 'above' %}" class="list-group-item list-group-item-action" aria-current="true">Above Tk. 1000</a>
+
+      </div>
+  </div>
+  <div class="col-sm-8 offset-sm-1">
+   <div class="row">
+        {% for product in topwears %}
+        <div class="col-sm-3 text-center mb-4">
+            <a href="{% url 'product-detail' product.id %}" class="btn">
+                <div class="item">
+                    <img src="{{product.product_image.url}}" alt="" height="200" width="" class="">
+                    <div class="fw-bold">{{product.title}}</div>
+                    <div class="fw-bold">Tk. {{product.discounted_price}}<br><small class="fw-light text-decoration-line-through">Tk. {{product.selling_price}}</small></div>
+                </div>
+            </a>
+        </div>
+        {% endfor %}
+   </div>
+  </div>
+ </div>
+</div>
+{% endblock main-content %}

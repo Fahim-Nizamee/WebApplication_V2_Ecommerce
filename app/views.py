@@ -4,9 +4,6 @@ from django.views import View
 from .models import Customer,Product,Cart,OrderPlaced
 
 
-# def home(request):
-#  return render(request, 'app/home.html')
-
 class ProductView(View):
     def get(self,request):
         topwears = Product.objects.filter(category='TW')
@@ -14,10 +11,6 @@ class ProductView(View):
         mobiles = Product.objects.filter(category='M')
         laptops = Product.objects.filter(category='L')
         return render(request,'app/home.html',{'topwears':topwears,'bottomwears':bottomwears,'mobiles':mobiles,'laptops':laptops})
-
-
-# def product_detail(request):
-#  return render(request, 'app/productdetail.html')
 
 class ProductDetailView(View):
     def get(self,request,pk):
@@ -52,6 +45,39 @@ def mobile(request,data=None):
     elif data=='above':
         mobiles=Product.objects.filter(category='M').filter(discounted_price__gt=10000)
     return render(request, 'app/mobile.html',{'mobiles':mobiles})
+
+def laptop(request,data=None):
+    if data == None:
+        laptops=Product.objects.filter(category='L')
+    elif data=='MSI' or data == 'Asus' or data =='LG' or data =='HP' or data=='Mac' or data=='Lenovo' or data=='Razer':
+        laptops=Product.objects.filter(category='L').filter(brand=data)
+    elif data=='below':
+        laptops=Product.objects.filter(category='L').filter(discounted_price__lt=50000)
+    elif data=='above':
+        laptops=Product.objects.filter(category='L').filter(discounted_price__gt=50000)
+    return render(request, 'app/laptop.html',{'laptops':laptops})
+
+def bottomwear(request,data=None):
+    if data == None:
+        bottomwears=Product.objects.filter(category='BW')
+    elif data=='BW-Collection' or data =='BlueMoon':
+        bottomwears=Product.objects.filter(category='BW').filter(brand=data)
+    elif data=='below':
+        bottomwears=Product.objects.filter(category='BW').filter(discounted_price__lt=1000)
+    elif data=='above':
+        bottomwears=Product.objects.filter(category='BW').filter(discounted_price__gt=1000)
+    return render(request, 'app/bottomwear.html',{'bottomwears':bottomwears})
+
+def topwear(request,data=None):
+    if data == None:
+        topwears=Product.objects.filter(category='TW')
+    elif data=='G-collection' or data =='BlueMoon':
+        topwears=Product.objects.filter(category='TW').filter(brand=data)
+    elif data=='below':
+        topwears=Product.objects.filter(category='TW').filter(discounted_price__lt=1000)
+    elif data=='above':
+        topwears=Product.objects.filter(category='TW').filter(discounted_price__gt=1000)
+    return render(request, 'app/topwear.html',{'topwears':topwears})
 
 def login(request):
  return render(request, 'app/login.html')
