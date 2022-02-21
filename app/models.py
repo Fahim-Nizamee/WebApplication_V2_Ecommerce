@@ -11,7 +11,8 @@ from django_countries.fields import CountryField
 class Customer(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=200)
-    country = CountryField()
+    mobilenumber = models.CharField(max_length=20)
+    country = models.CharField(max_length=200)
     city = models.CharField(max_length=50)
     zipcode = models.IntegerField()
 

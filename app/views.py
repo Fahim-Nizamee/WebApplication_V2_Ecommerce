@@ -1,9 +1,10 @@
+from email import message
 from unicodedata import category
 from django.shortcuts import render
 from django.views import View
 from .models import Customer,Product,Cart,OrderPlaced
-from .forms import CustomerRegistrationForm
-
+from .forms import CustomerRegistrationForm,CustomerProfileForm
+from django.contrib import messages
 
 class ProductView(View):
     def get(self,request):
@@ -23,9 +24,6 @@ def add_to_cart(request):
 
 def buy_now(request):
  return render(request, 'app/buynow.html')
-
-def profile(request):
- return render(request, 'app/profile.html')
 
 def address(request):
  return render(request, 'app/address.html')
@@ -88,3 +86,22 @@ class CustomerRegistrationView(View):
         return render(request, 'app/customerregistration.html',{'form':form})
 def checkout(request):
  return render(request, 'app/checkout.html')
+
+class ProfileView(View):
+    def get(self,request):
+        form = CustomerProfileForm()
+        return render(request,'app/profile.html',{'form':form,'active':'btn-primary'})
+
+    def post(self,request):
+        form = CustomerProfileForm(request.POST)
+        if form.is_valid():
+            usr= request.user
+            name = form.cleaned_data['name']
+            mobile = form.cleaned_data['mobilenumber']
+            country = form.cleaned_data['country']
+            city = form.cleaned_data['city']
+            zipcode = form.cleaned_data['zipcode']
+            reg = Customer(user=usr,name=name, mobilenumber=mobile,country=country,city=city,zipcode=zipcode)
+            reg.save()
+            messages.success(request,'Congratulations!! Profile updated Successfully')
+        return render(request,'app/profile.html',{'form':form,'active':'btn-primary'})
