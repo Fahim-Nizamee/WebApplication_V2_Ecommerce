@@ -26,7 +26,8 @@ def buy_now(request):
  return render(request, 'app/buynow.html')
 
 def address(request):
- return render(request, 'app/address.html')
+    add = Customer.objects.filter(user=request.user)
+    return render(request, 'app/address.html',{'add':add,'active':'btn-primary'})
 
 def orders(request):
  return render(request, 'app/orders.html')
