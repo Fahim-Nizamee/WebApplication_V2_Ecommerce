@@ -13,18 +13,18 @@
   </div>
   <div class="col-sm-9 offset-sm-1">
    <div class="row">
-       {% for ad in add %}
+    {% for ad in add %}
     <div class="col-sm-6">
-     <div class="card">
-      <div class="card-body">
-       <h3>Address {{forloop.counter}}</h3>
-       <p>Name: {{ad.name}}</p>
-       <p>Mobile Number: {{ad.mobilenumber}}</p>
-       <p>Country: {{ad.country}}</p>
-       <p>City: {{ad.city}}</p>
-       <p>Zipcode: {{ad.zipcode}}</p>
-      </div>
-     </div>
+        <div class="card">
+            <div class="card-body">
+                <h3>Address {{forloop.counter}}</h3>
+                <p>Name: {{ad.name}}</p>
+                <p>Mobile Number: {{ad.mobilenumber}}</p>
+                <p>Country: {{ad.country}}</p>
+                <p>City: {{ad.city}}</p>
+                <p>Zipcode: {{ad.zipcode}}</p>
+            </div>
+        </div>
     </div>
     {% endfor %}
     </div>
