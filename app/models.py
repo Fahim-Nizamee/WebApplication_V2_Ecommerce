@@ -44,6 +44,20 @@ class Cart(models.Model):
     def __str__(self):
         return str(self.id)
 
+RATING=(
+    (1,'1'),
+    (2,'2'),
+    (3,'3'),
+    (4,'4'),
+    (5,'5'),
+)
+
+class ProductReview(models.Model):
+    user=models.ForeignKey(User,on_delete=models.CASCADE)
+    product=models.ForeignKey(Product,on_delete=models.CASCADE)
+    review_text=models.TextField()
+    review_rating=models.CharField(choices=RATING,max_length=150)
+
 STATUS_CHOICES =(
     ('Accepted','Accepted'),
     ('Packed','Packed'),

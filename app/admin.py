@@ -3,7 +3,8 @@ from .models import(
     Customer,
     Product,
     Cart,
-    OrderPlaced
+    OrderPlaced,
+    ProductReview,
 )
 @admin.register(Customer)
 class CustomerModelAdmin(admin.ModelAdmin):
@@ -19,5 +20,8 @@ class CartModelAdmin(admin.ModelAdmin):
 
 @admin.register(OrderPlaced)
 class OrderPlacedModelAdmin(admin.ModelAdmin):
-    lost_display=['id','user','customer','product','quantity','ordered_date','status']
+    list_display=['id','user','customer','product','quantity','ordered_date','status']
 
+@admin.register(ProductReview)
+class ProductReviewAdmin(admin.ModelAdmin):
+    list_display=['user','product','review_text','review_rating']
