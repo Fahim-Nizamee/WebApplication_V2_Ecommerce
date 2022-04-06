@@ -207,7 +207,6 @@ def remove_cart(request):
     
 def add_comment(request, pk):
     product = Product.objects.get(id=pk)
-
     form = CommentForm(instance=product)
 
     if request.method == 'POST':
@@ -215,7 +214,8 @@ def add_comment(request, pk):
         if form.is_valid():
             name = request.user.username
             body = form.cleaned_data['comment_body']
-            c = Comment(product=product, user_name=name, comment_body=body, date_added=datetime.now())
+            rate = form.cleaned_data['rating']
+            c = Comment(product=product, user_name=name, comment_body=body, date_added=datetime.now(),rating=rate)
             c.save()
             return redirect('product-detail',pk)
         else:

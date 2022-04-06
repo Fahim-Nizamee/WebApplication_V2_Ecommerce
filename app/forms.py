@@ -46,7 +46,7 @@ class CustomerProfileForm(forms.ModelForm):
 class CommentForm(forms.ModelForm):
     class Meta:
         model = Comment
-        fields = ['comment_body']
+        fields = ['comment_body','rating']
         widgets = {
             'comment_body': forms.Textarea(attrs={'class': 'form-control'}),
                    }

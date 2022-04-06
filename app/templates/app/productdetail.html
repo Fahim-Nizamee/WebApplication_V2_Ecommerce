@@ -39,7 +39,13 @@
             <p>No comments yet...</p>
         {% else %}
             {% for comment in product.comments.all %}
-            <h4 class="text-capitalize"><strong>{{ comment.user_name }}</strong></h4>
+            <h4 class="text-capitalize"><strong>{{ comment.user_name }}</strong>
+                <strong style="font-size: 15px;">{% for star in comment.rating|ljust:comment.rating %}
+                <i class="fa fa-star text-warning"></i>
+                {% endfor %}
+                ({{comment.rating}})
+            </strong>
+            </h4>
             <p>{{ comment.comment_body }}</p>
             <p> <strong>Date: </strong><small>{{ comment.date_added }}</small></p>
             <hr>

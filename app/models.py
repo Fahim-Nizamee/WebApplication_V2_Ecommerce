@@ -59,13 +59,20 @@ class OrderPlaced(models.Model):
     ordered_date=models.DateTimeField(auto_now_add=True)
     status=models.CharField(max_length=50,choices=STATUS_CHOICES,default='Pending')
 
+RATING = (
+    ('1','1'),
+    ('2','2'),
+    ('3','3'),
+    ('4','4'),
+    ('5','5')
+)
 
 class Comment(models.Model):
     product = models.ForeignKey(Product,related_name="comments" ,on_delete=models.CASCADE)
     user_name = models.CharField(max_length=200)
     comment_body = models.TextField()
     date_added = models.DateTimeField(auto_now_add=True)
-    
+    rating = models.CharField(choices=RATING,max_length=2)    
     def __str__(self):
         return '%s - %s' %(self.product.title,self.user_name)
     
