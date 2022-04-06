@@ -23,7 +23,9 @@ class ProductView(View):
 class ProductDetailView(View):
     def get(self,request,pk):
         product=Product.objects.get(pk=pk)
-        num_comments = Comment.objects.all().count()
+        num_comments= Comment.objects.filter(product_id=pk).count()
+        # print(num)
+        # num_comments = Comment.objects.all().count()
         return render(request,'app/productdetail.html',{'product':product,'num_comments':num_comments})
 
 def add_to_cart(request):
@@ -215,7 +217,7 @@ def add_comment(request, pk):
             body = form.cleaned_data['comment_body']
             c = Comment(product=product, user_name=name, comment_body=body, date_added=datetime.now())
             c.save()
-            return redirect('/')
+            return redirect('product-detail',pk)
         else:
             print('form is invalid')    
     else:
