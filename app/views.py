@@ -11,6 +11,7 @@ from django.contrib import messages
 from django.db.models import Q
 from django.http import JsonResponse
 from datetime import datetime
+from django.db.models import Max,Min,Count,Avg
 
 class ProductView(View):
     def get(self,request):
@@ -24,9 +25,10 @@ class ProductDetailView(View):
     def get(self,request,pk):
         product=Product.objects.get(pk=pk)
         num_comments= Comment.objects.filter(product_id=pk).count()
+        avg_reviews=Comment.objects.filter(product=product).aggregate(avg_rating=Avg('rating'))
         # print(num)
         # num_comments = Comment.objects.all().count()
-        return render(request,'app/productdetail.html',{'product':product,'num_comments':num_comments})
+        return render(request,'app/productdetail.html',{'product':product,'num_comments':num_comments,'avg_reviews':avg_reviews})
 
 def add_to_cart(request):
     user=request.user
