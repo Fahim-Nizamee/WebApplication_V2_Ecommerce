@@ -1,14 +1,16 @@
 from email import message
 from itertools import product
+from multiprocessing import context
 from unicodedata import category
 from django.http import JsonResponse
 from django.shortcuts import redirect, render, redirect
 from django.views import View
-from .models import Customer,Product,Cart,OrderPlaced
-from .forms import CustomerRegistrationForm,CustomerProfileForm
+from .models import Customer,Product,Cart,OrderPlaced,Comment
+from .forms import CustomerRegistrationForm,CustomerProfileForm,CommentForm
 from django.contrib import messages
 from django.db.models import Q
 from django.http import JsonResponse
+from datetime import datetime
 
 class ProductView(View):
     def get(self,request):
@@ -21,7 +23,8 @@ class ProductView(View):
 class ProductDetailView(View):
     def get(self,request,pk):
         product=Product.objects.get(pk=pk)
-        return render(request,'app/productdetail.html',{'product':product})
+        num_comments = Comment.objects.all().count()
+        return render(request,'app/productdetail.html',{'product':product,'num_comments':num_comments})
 
 def add_to_cart(request):
     user=request.user
@@ -113,6 +116,7 @@ class CustomerRegistrationView(View):
         form=CustomerRegistrationForm(request.POST)
         if form.is_valid():
             form.save()
+            return redirect('login')
         return render(request, 'app/customerregistration.html',{'form':form})
 def checkout(request):
  return render(request, 'app/checkout.html')
@@ -198,3 +202,29 @@ def remove_cart(request):
             'totalamount':amount + shipping_amount
          }
         return JsonResponse(data)
+    
+def add_comment(request, pk):
+    product = Product.objects.get(id=pk)
+
+    form = CommentForm(instance=product)
+
+    if request.method == 'POST':
+        form = CommentForm(request.POST, instance=product)
+        if form.is_valid():
+            name = request.user.username
+            body = form.cleaned_data['comment_body']
+            c = Comment(product=product, user_name=name, comment_body=body, date_added=datetime.now())
+            c.save()
+            return redirect('/')
+        else:
+            print('form is invalid')    
+    else:
+        form = CommentForm()    
+
+
+    context = {
+        'form': form
+    }
+
+    return render(request, 'app/add_comment.html', context)
+    

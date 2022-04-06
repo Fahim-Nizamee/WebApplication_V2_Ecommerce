@@ -29,6 +29,29 @@
     <li>Partner Offer ₹2000 Flipkart Gift Card on Every 1000th Transaction with a new Visa Debit/Credit Card</li>
    </ul>
   </div>
+  <div class="col-md-10">
+      <div class="form-control" style="margin: 10px;">
+        Add comments ({{ num_comments }})-
+        <br>
+        <hr>
+        <hr>
+        {% if not product.comments.all %}
+            <p>No comments yet...</p>
+        {% else %}
+            {% for comment in product.comments.all %}
+            <h4 class="text-capitalize"><strong>{{ comment.user_name }}</strong></h4>
+            <p>{{ comment.comment_body }}</p>
+            <p> <strong>Date: </strong><small>{{ comment.date_added }}</small></p>
+            <hr>
+            {% endfor %}
+        {% endif %}
+        {% if request.user.is_authenticated %}
+        <p><a class="btn btn-primary" href="{% url 'add-comment' product.id %}"> Add Comment </a></p>
+        {% else %}
+        <p><strong class="text-danger">Please sign in for comments...</strong></p>
+        {% endif %}
+      </div>
+  </div>
  </div>
 </div>
 {% endblock main-content %}

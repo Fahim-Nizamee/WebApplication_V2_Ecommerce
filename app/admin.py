@@ -4,7 +4,7 @@ from .models import(
     Product,
     Cart,
     OrderPlaced,
-    ProductReview,
+    Comment,
 )
 @admin.register(Customer)
 class CustomerModelAdmin(admin.ModelAdmin):
@@ -22,6 +22,4 @@ class CartModelAdmin(admin.ModelAdmin):
 class OrderPlacedModelAdmin(admin.ModelAdmin):
     list_display=['id','user','customer','product','quantity','ordered_date','status']
 
-@admin.register(ProductReview)
-class ProductReviewAdmin(admin.ModelAdmin):
-    list_display=['user','product','review_text','review_rating']
+admin.site.register(Comment)

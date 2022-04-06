@@ -44,20 +44,6 @@ class Cart(models.Model):
     def __str__(self):
         return str(self.id)
 
-RATING=(
-    (1,'1'),
-    (2,'2'),
-    (3,'3'),
-    (4,'4'),
-    (5,'5'),
-)
-
-class ProductReview(models.Model):
-    user=models.ForeignKey(User,on_delete=models.CASCADE)
-    product=models.ForeignKey(Product,on_delete=models.CASCADE)
-    review_text=models.TextField()
-    review_rating=models.CharField(choices=RATING,max_length=150)
-
 STATUS_CHOICES =(
     ('Accepted','Accepted'),
     ('Packed','Packed'),
@@ -73,3 +59,13 @@ class OrderPlaced(models.Model):
     ordered_date=models.DateTimeField(auto_now_add=True)
     status=models.CharField(max_length=50,choices=STATUS_CHOICES,default='Pending')
 
+
+class Comment(models.Model):
+    product = models.ForeignKey(Product,related_name="comments" ,on_delete=models.CASCADE)
+    user_name = models.CharField(max_length=200)
+    comment_body = models.TextField()
+    date_added = models.DateTimeField(auto_now_add=True)
+    
+    def __str__(self):
+        return '%s - %s' %(self.product.title,self.user_name)
+    

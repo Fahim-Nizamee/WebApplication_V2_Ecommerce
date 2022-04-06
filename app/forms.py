@@ -5,7 +5,7 @@ from django.contrib.auth.forms import UserCreationForm,AuthenticationForm,Userna
 from django.contrib.auth.models import User
 from django.utils.translation import gettext ,gettext_lazy as _
 from django.contrib.auth import password_validation
-from .models import Customer
+from .models import Customer,Comment
 
 from app.models import Customer
 
@@ -41,4 +41,12 @@ class CustomerProfileForm(forms.ModelForm):
         model=Customer
         fields = ['name','mobilenumber','country','city','zipcode']
         widgets = {'name':forms.TextInput(attrs={'class':'form-control'}),'mobilenumber':forms.TextInput(attrs={'class':'form-control'}),'country':forms.TextInput(attrs={'class':'form-control'}),'city':forms.TextInput(attrs={'class':'form-control'}),'zipcode':forms.NumberInput(attrs={'class':'form-control'})}
-        
+     
+     
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        fields = ['comment_body']
+        widgets = {
+            'comment_body': forms.Textarea(attrs={'class': 'form-control'}),
+                   }
