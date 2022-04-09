@@ -18,6 +18,7 @@
     <!--Custom CSS-->
     <link rel="stylesheet" href="{% static 'app/css/style.css' %}">
 
+    <meta name="referrer" content="no-referrer-when-downgrade">
 
     <title>KichuKinen.com | {% block title %} {% endblock title %} </title>
   </head>
@@ -51,7 +52,16 @@
                <li><a class="dropdown-item" href="{% url 'bottomwear' %}">Bottom Wear</a></li>
              </ul>
            </li>
+           <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle text-white" href="#" id="InfoDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Information
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="fashionDropdown">
+              <li><a class="dropdown-item" href="{% url 'aboutus' %}">About us</a></li>
+            </ul>
+          </li>
          </ul>
+         
           <!-- search bar -->
           <form class="d-flex" action="/search">
           <input name="nm" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
@@ -88,10 +98,26 @@
        </div>
      </div>
     </nav>
+    
     {% block banner_slider %} {% endblock banner_slider %}
     {% block livesale %} {% endblock livesale %}
-    {% block main-content %} {% endblock main-content %}
+    {% block main-content %}
+    <!--Start of Tawk.to Script-->
 
+    {% endblock main-content %}
+
+    <script type="text/javascript">
+      var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+      (function(){
+      var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+      s1.async=true;
+      s1.src='https://embed.tawk.to/6251cc957b967b1179899aa8/1g07oeb0s';
+      s1.charset='UTF-8';
+      s1.setAttribute('crossorigin','*');
+      s0.parentNode.insertBefore(s1,s0);
+      })();
+      </script>
+  <!--End of Tawk.to Script-->
     <!-- Start Footer -->
     <footer class="container-fluid bg-dark text-center p-2 mt-5">
         <small class="text-white">Copyright &copy; 2022 || Designed By Fahim Nizamee || </small>

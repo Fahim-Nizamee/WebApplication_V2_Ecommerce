@@ -38,4 +38,5 @@ urlpatterns = [
     path('minuscart/',views.minus_cart,name='minuscart'),
     path('removecart/',views.remove_cart,name='removecart'),
     path('product-detail/<int:pk>/add-comment',views.add_comment, name='add-comment'),
+    path('about-us/', views.about_us, name='aboutus'),
 ] + static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)

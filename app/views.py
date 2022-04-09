@@ -232,3 +232,5 @@ def add_comment(request, pk):
 
     return render(request, 'app/add_comment.html', context)
     
+def about_us(request):
+    return render(request, 'app/about_us.html')

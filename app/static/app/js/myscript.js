@@ -84,10 +84,3 @@ $('.remove-cart').click(function(){
     )
 }
 )
-
-$(".starLoop").on('click',function(){
-    for(var i=1; i<=res.product.comments.rating; i++)
-    {
-        _html+='<i class="fa fa-star text-warning"></i>';
-    }
-})

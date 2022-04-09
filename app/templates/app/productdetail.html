@@ -1,63 +1,58 @@
-{% extends 'app/base.html' %}
-{% load static %}
-{% block title %}Product Detail{% endblock title %}
+{% extends 'app/base.html' %} 
+{% load static %} 
+{% block title %}Product Detail{% endblock title %} 
 {% block main-content %}
 <div class="container my-5">
- <div class="row">
-  <div class="col-sm-6 text-center align-self-center">
-   <img src="{{product.product_image.url}}" alt="" class="img-fluid img-thumbnail">
-  </div>
-  <div class="col-sm-5 offset-sm-1">
-   <h2>{{product.title}}</h2>
-   <hr>
-   
-   <h4>Tk. {{product.discounted_price}} <small class="fw-light text-decoration-line-through">{{product.selling_price}}</small></h4> <br>
+    <div class="row">
+        <div class="col-sm-6 text-center align-self-center">
+            <img src="{{product.product_image.url}}" alt="" class="img-fluid img-thumbnail">
+        </div>
+        <div class="col-sm-5 offset-sm-1">
+            <h2>{{product.title}}</h2>
+            <hr>
 
-    <form action="/add-to-cart" class="d-inline">
-        <input type="hidden" name="prod_id" value={{product.id}} id="prod_id">
-        <button type="submit" class="btn btn-primary shadow px-5 py-2" >Add to Cart</button>
-    </form>
-    
-   <a href="{% url 'buy-now' %}" class="btn btn-danger shadow px-5 py-2 ms-4">Buy Now</a>
-   <h5 class="mt-5">{{product.brand}}</h5>
-   <p>Product Description: {{product.description}}</p> <br>
-   <h5 class="mt-5">Available Offers</h5>
-   <ul>
-    <li>Bank Offer 5% Unlimited Cashback on Flipkart Axis Bank Credit</li>
-    <li>Special Price Get extra ₹3000 off (price inclusive of discount)</li>
-    <li>No cost EMI ₹1,667/month. Standard EMI also available</li>
-    <li>Partner Offer ₹2000 Flipkart Gift Card on Every 1000th Transaction with a new Visa Debit/Credit Card</li>
-   </ul>
-  </div>
-  <div class="col-md-10">
-      <div class="form-control" style="margin: 10px;">
-        Add comments ({{ num_comments }})  Rating- <strong>{{avg_reviews.avg_rating|truncatechars:4}}/5   </strong>
-        <br>
-        <hr>
-        <hr>
-        {% if not product.comments.all %}
-            <p>No comments yet...</p>
-        {% else %}
-            {% for comment in product.comments.all %}
-            <h4 class="text-capitalize"><strong>{{ comment.user_name }}</strong>
-                <strong style="font-size: 15px;">{% for star in comment.rating|ljust:comment.rating %}
+            <h4>Tk. {{product.discounted_price}} <small class="fw-light text-decoration-line-through">{{product.selling_price}}</small></h4> <br>
+
+            <form action="/add-to-cart" class="d-inline">
+                <input type="hidden" name="prod_id" value={{product.id}} id="prod_id">
+                <button type="submit" class="btn btn-primary shadow px-5 py-2">Add to Cart</button>
+            </form>
+
+            <a href="{% url 'buy-now' %}" class="btn btn-danger shadow px-5 py-2 ms-4">Buy Now</a>
+            <h5 class="mt-5">{{product.brand}}</h5>
+            <p>Product Description: {{product.description}}</p> <br>
+            <h5 class="mt-5">Available Offers</h5>
+            <ul>
+                <li>Bank Offer 5% Unlimited Cashback on Flipkart Axis Bank Credit</li>
+                <li>Special Price Get extra ₹3000 off (price inclusive of discount)</li>
+                <li>No cost EMI ₹1,667/month. Standard EMI also available</li>
+                <li>Partner Offer ₹2000 Flipkart Gift Card on Every 1000th Transaction with a new Visa Debit/Credit Card</li>
+            </ul>
+        </div>
+        <div class="col-md-10">
+            <div class="form-control" style="margin: 10px;">
+                Add comments ({{ num_comments }}) Rating- <strong>{{avg_reviews.avg_rating|truncatechars:4}}/5   </strong>
+                <br>
+                <hr>
+                <hr> {% if not product.comments.all %}
+                <p>No comments yet...</p>
+                {% else %} {% for comment in product.comments.all %}
+                <h4 class="text-capitalize"><strong>{{ comment.user_name }}</strong>
+                    <strong style="font-size: 15px;">{% for star in comment.rating|ljust:comment.rating %}
                 <i class="fa fa-star text-warning"></i>
                 {% endfor %}
                 ({{comment.rating}})
             </strong>
-            </h4>
-            <p>{{ comment.comment_body }}</p>
-            <p> <strong>Date: </strong><small>{{ comment.date_added }}</small></p>
-            <hr>
-            {% endfor %}
-        {% endif %}
-        {% if request.user.is_authenticated %}
-        <p><a class="btn btn-primary" href="{% url 'add-comment' product.id %}"> Add Comment </a></p>
-        {% else %}
-        <p><strong class="text-danger">Please sign in for comments...</strong></p>
-        {% endif %}
-      </div>
-  </div>
- </div>
+                </h4>
+                <p>{{ comment.comment_body }}</p>
+                <p> <strong>Date: </strong><small>{{ comment.date_added }}</small></p>
+                <hr> {% endfor %} {% endif %} {% if request.user.is_authenticated %}
+                <p><a class="btn btn-primary" href="{% url 'add-comment' product.id %}"> Add Comment </a></p>
+                {% else %}
+                <p><strong class="text-danger">Please sign in for comments...</strong></p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
 </div>
 {% endblock main-content %}
