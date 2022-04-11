@@ -27,8 +27,10 @@ class ProductView(View):
 class ProductDetailView(View):
     def get(self,request,pk):
         product=Product.objects.get(pk=pk)
+        user=request.user
         item_already_in_cart = False
-        item_already_in_cart = Cart.objects.filter(Q(product=product.id) & Q(user=request.user)).exists()
+        if user.is_authenticated:
+            item_already_in_cart = Cart.objects.filter(Q(product=product.id) & Q(user=request.user)).exists()
         
         num_comments= Comment.objects.filter(product_id=pk).count()
         avg_reviews=Comment.objects.filter(product=product).aggregate(avg_rating=Avg('rating'))
