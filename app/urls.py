@@ -1,3 +1,4 @@
+from unicodedata import name
 from django.conf import settings
 from django.urls import path
 from app import views
@@ -40,4 +41,5 @@ urlpatterns = [
     path('about-us/', views.about_us, name='aboutus'),
     path('checkout/', views.checkout, name='checkout'),
     path('paymentdone/', views.payment_done, name='paymentdone'),
+    path('return-product/', views.return_product,name='return-product')
 ] + static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)

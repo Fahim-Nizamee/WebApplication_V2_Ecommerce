@@ -2,7 +2,17 @@
 {% load static %}
 {% block title %}Profile{% endblock title %}
 {% block main-content %}
+<div class="container my-5">
+<div class="row shadow-sm mb-4">
+    <div class="col-sm-2">
+        <img src="{{l.product.product_image.url}}" alt="" class="img-fluid" height="150" width="150">
+    </div>
+    <div class="col-sm-7">
+        <p>Product: {{l.product.title}} </p>
+        <p>Quantity: {{l.quantity}} </p>
+        <p>Price: {{l.total_cost}} </p>
+    </div>
 
-
-
+</div>
+</div>
 {% endblock main-content %}
