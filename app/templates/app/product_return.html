@@ -3,7 +3,7 @@
 {% block title %}Profile{% endblock title %}
 {% block main-content %}
 <div class="container my-5">
-<div class="row shadow-sm mb-4">
+<div class=" row shadow-sm mb-4">
     <div class="col-sm-2">
         <img src="{{l.product.product_image.url}}" alt="" class="img-fluid" height="150" width="150">
     </div>
@@ -13,6 +13,59 @@
         <p>Price: {{l.total_cost}} </p>
     </div>
 
+    
+</div>
+
+</div>
+<div class="container my-6">
+<div class="form-control">
+    <h5><strong class="text-capitalize">Dear Mr/Mrs. {{request.user}},</strong></h5>
+    <p style="margin-left:8%; margin-right:8%;"> <strong>We hope you are well sir. We have some terms and condition about product return policy, we guess you already know. If you don't please read those terms and condition carefully sir.</strong></p>
+    <hr>
+    <p>
+        <span><strong class="text-danger">Please note the following exceptions to our return and refund policy:</strong></span>
+    </p>
+    <div class="form-control shadow-sm mb-4">
+    <p>
+       1. Discounted items are final and cannot be returned or exchanged.
+    </p>
+    <p>
+        2. Returned items must have tags still on and be returned in original product packaging.
+    </p>
+    <p>
+        3. Returned items must have no visible signs of wear or use.
+    </p>
+</div>
+<br>
+    <p><strong class="text-danger">To initiate a return, please complete the following steps:</strong></p>
+    <div class="form-control shadow-sm mb-4">
+        <!-- {{csrf_token}} -->
+        <p class="text-warning"><strong> Your steps should be laid out clearly, linking to relevant pages, such as your online portal.</strong></p>
+        <br>
+        <p>
+           1.  Reply to your order confirmation email to request which products you would like to return. <strong>(In this case, it is </strong><strong class="text-danger">{{l.product.title}}, Price= {{l.total_cost}}/-</strong>)
+        </p>
+        <p>
+            2. Please take a picture of your requested product and send it to our customer service agent with proper description. Then they will send you an email about confirmation. 
+            <br>
+            <br><span><img src="{% static '/app/images/t.png' %}" alt="whatsapp" height="250" width="400px"></span>
+        </p>
+        <p>
+            3. Print the prepaid return shipping label that you will receive by email.
+        </p>
+        <p>
+            4. Send all items back to us using the label provided.
+        </p>
+    </div>
+    <p><strong class="text-danger">Additional Information:</strong></p>
+    <div class="form-control shadow-sm mb-4 ">
+        <p>
+            1. The whole process will take around 1 week or more.
+        </p>
+        <p>
+            2. You have to pay Shipping fees.
+        </p>
+    </div>
 </div>
 </div>
 {% endblock main-content %}

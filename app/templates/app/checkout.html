@@ -29,6 +29,9 @@
   <div class="col-sm-4 offset-sm-1">
     <h4>Select Shipping Address</h4>
     <hr>
+    {% if ll == 0 %}
+    <h4 class="text-danger">Please Add an Address First</h4>
+    {% else %}
     <form action="/paymentdone">
       {% for ad in add %}
       <div class="card">
@@ -47,6 +50,7 @@
           <button type="submit" class="btn btn-warning mt-3 px-5 fw-bold">Continue</button>
         </div>
       </form>
+      {% endif %}
     </div>
   </div>
 </div>

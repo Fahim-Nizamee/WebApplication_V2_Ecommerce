@@ -193,6 +193,8 @@ class CustomerRegistrationView(View):
 def checkout(request):
     user = request.user
     add = Customer.objects.filter(user=user)
+    ll=len(add)
+    print(ll)
     cart_item = Cart.objects.filter(user=user)
     amount = 0.0
     shipping_amount= 90.0
@@ -205,7 +207,7 @@ def checkout(request):
     totalitem=0
     if request.user.is_authenticated:
         totalitem = len(Cart.objects.filter(user=request.user))
-    return render(request, 'app/checkout.html',{'add':add, 'totalamount':totalamount,'cart_item':cart_item ,'totalitem':totalitem})
+    return render(request, 'app/checkout.html',{'add':add, 'totalamount':totalamount,'cart_item':cart_item ,'totalitem':totalitem,'ll':ll})
 
 
 
