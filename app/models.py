@@ -25,6 +25,12 @@ CATAGORY_CHOICES =(
     ('TW','Top Wear'),
     ('BW','Bottom Wear')
 )
+
+STOCK_CHOICES = (
+    ('In Stock','In Stock'),
+    ('Out of Stock','Out of Stock'),
+)
+
 class Product(models.Model):
     title=models.CharField(max_length=100)
     selling_price=models.FloatField()
@@ -33,6 +39,7 @@ class Product(models.Model):
     brand=models.CharField(max_length=100)
     category=models.CharField(choices=CATAGORY_CHOICES,max_length=2)
     product_image=models.ImageField(upload_to='productimg')
+    stock = models.CharField(choices=STOCK_CHOICES,default='In Stock',max_length=100)
     def __str__(self):
         return str(self.id)
 

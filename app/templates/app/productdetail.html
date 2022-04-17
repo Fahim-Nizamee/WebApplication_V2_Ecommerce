@@ -12,7 +12,12 @@
             <hr>
 
             <h4>Tk. {{product.discounted_price}} <small class="fw-light text-decoration-line-through">{{product.selling_price}}</small></h4> <br>
-
+            {% if product.stock == "In Stock" %}
+            <div class="form-control" style="background-color: rgb(255, 255, 255); width: 300px; height: 50px;">
+                <h4 class="text text-center align-self-center">{{product.stock}}</h4>
+            </div>
+            <br>
+            
             {% if item_already_in_cart %}
                 <a href="{% url 'showcart' %}" class="btn btn-warning shadow px-5 py-2 ms-4">Go to Cart</a>
             {% else %}
@@ -25,6 +30,11 @@
                 <input type="hidden" name="prod_id" value={{product.id}} id="prod_id">
                 <button type="submit" class="btn btn-danger shadow px-5 py-2">Buy Now</button>
             </form>
+            {% else %}
+            <div class="form-control" style="background-color: rgb(255, 255, 255); width: 300px; height: 50px;">
+                <h4 class="text-danger text-center align-self-center">{{product.stock}}</h4>
+            </div>
+            {% endif %}
             <!-- <a href="{% url 'buy-now' %}" class="btn btn-danger shadow px-5 py-2 ms-4">Buy Now</a> -->
             <h5 class="mt-5">{{product.brand}}</h5>
             <p>Product Description: {{product.description}}</p> <br>
@@ -36,6 +46,11 @@
                 <li>Partner Offer ₹2000 Flipkart Gift Card on Every 1000th Transaction with a new Visa Debit/Credit Card</li>
             </ul>
         </div>
+        <!-- <div class="col-md-10">
+        <div class="form-control text-center align-self-center " style="margin: 10px; height: 40px; width: 350px; background-color: rgb(232, 69, 69);">
+            <p style="height: 100%; display: block;"><strong class="text-white">{{product.stock}}</strong></p>
+        </div>
+        </div> -->
         <div class="col-md-10">
             <div class="form-control" style="margin: 10px;">
                 Add comments ({{ num_comments }}) Rating- <strong>{{avg_reviews.avg_rating|truncatechars:4}}/5   </strong>
